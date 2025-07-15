@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Malla Curricular Interactiva - Licenciatura en Informática</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body id="body"> <button id="themeToggle" class="theme-toggle">🌙</button> <div class="container">
+        <div class="header">
+            <div class="header-content">
+                <h1>Malla Curricular Interactiva</h1>
+                <p>Licenciatura en Informática - Universidad Mayor de San Andrés</p>
+            </div>
+        </div>
+
+        <div class="controls">
+            <div class="control-group">
+                <label>Acciones:</label>
+                <button class="btn btn-primary" onclick="openModal()">📊 Estadísticas</button>
+                <button class="btn btn-success" onclick="exportData()">📤 Exportar</button>
+                <button class="btn btn-warning" onclick="resetProgress()">🔄 Reiniciar</button>
+                <button class="btn btn-info" onclick="importData()">📥 Importar</button>
+            </div>
+
+            <div class="control-group">
+                <label>Vista:</label>
+                <button class="btn btn-primary" onclick="toggleView('semester')">🏫 Por Semestre</button>
+                <button class="btn btn-primary" onclick="toggleView('status')">📋 Por Estado</button>
+                <button class="btn btn-primary" onclick="toggleView('prereqs')">🔗 Prerequisitos</button>
+            </div>
+        </div>
+
+        <div class="stats">
+            <div class="stat-item">
+                <div class="stat-number" id="totalSubjects">0</div>
+                <div class="stat-label">Materias Totales</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="completedSubjects">0</div>
+                <div class="stat-label">Completadas</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="currentSubjects">0</div>
+                <div class="stat-label">Actuales</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="availableSubjects">0</div>
+                <div class="stat-label">Disponibles</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="progressPercentage">0%</div>
+                <div class="stat-label">Progreso</div>
+            </div>
+        </div>
+
+        <div class="malla-container">
+            <div class="search-container">
+                <input type="text" class="search-input" placeholder="Buscar materia..." onkeyup="searchSubjects(this.value)">
+                <span class="search-icon">🔍</span>
+            </div>
+
+            <div class="filters">
+                <button class="filter-btn active" onclick="filterSubjects('all')">Todas</button>
+                <button class="filter-btn" onclick="filterSubjects('completed')">Completadas</button>
+                <button class="filter-btn" onclick="filterSubjects('current')">Actuales</button>
+                <button class="filter-btn" onclick="filterSubjects('available')">Disponibles</button>
+                <button class="filter-btn" onclick="filterSubjects('blocked')">Bloqueadas</button>
+            </div>
+
+            <div class="legend">
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #28a745;"></div>
+                    <span>Completada</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #ffc107;"></div>
+                    <span>Actual</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #17a2b8;"></div>
+                    <span>Disponible</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #dc3545;"></div>
+                    <span>Bloqueada</span>
+                </div>
+            </div>
+
+            <div id="mallaCurricular"></div>
+        </div>
+    </div>
+
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Información de la Materia</h2>
+                <span class="close" onclick="closeModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div id="modalContent">
+                    </div>
+            </div>
+        </div>
+    </div>
+
+    <input type="file" id="fileInput" style="display: none;" accept=".json" onchange="handleFileImport(event)">
+
+    <script src="script.js"></script>
+</body>
+</html>
